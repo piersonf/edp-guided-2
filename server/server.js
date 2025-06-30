@@ -14,9 +14,34 @@ const dbName = 'swapi'
 app.use(cors());
 app.use(express.json());
 
+app.get('/api/characters', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('characters');
+        const characters = await collection.find({}).toArray();
+        res.json(characters);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("In space, no one can hear your API request... No characters found!");
+    }
+});
+
+app.get('/api/films', async (req, res) => {
+    try {
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('films');
+        const films = await collection.find({}).toArray();
+        res.json(films);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("In space, no one can hear your API request... No films found!");
+    }
+});
+
 app.get('/api/planets', async (req, res) => {
     try {
-        // Console log the entire request object
         const client = await MongoClient.connect(url);
         const db = client.db(dbName);
         const collection = db.collection('planets');
@@ -25,6 +50,48 @@ app.get('/api/planets', async (req, res) => {
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("In space, no one can hear your API request... No planets found!");
+    }
+});
+
+app.get('/api/characters/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('characters');
+        const characters = await collection.find({ 'id': parseInt(id) }).toArray();
+        res.json(characters);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("In space, no one can hear your API request... No character found!");
+    }
+});
+
+app.get('/api/films/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('films');
+        const films = await collection.find({ 'id': parseInt(id) }).toArray();
+        res.json(films);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("In space, no one can hear your API request... No film found!");
+    }
+});
+
+app.get('/api/planets/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection('planets');
+        const planets = await collection.find({ 'id': parseInt(id) }).toArray();
+        res.json(planets);
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).send("In space, no one can hear your API request... No planet found!");
     }
 });
 
