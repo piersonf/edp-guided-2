@@ -17,13 +17,18 @@ const Character = (props) => {
             const json_response = await response.json();
             json_response.homeworld = await fetchHomeworld(json_response);
             json_response.films = await fetchFilms(json_response);
-            console.log(json_response);
-            setCharacter(json_response); // assign JSON response to the data variable.
+            localStorage.setItem(`character_${id}`, JSON.stringify(json_response));            setCharacter(json_response); // assign JSON response to the data variable.
+            setCharacter(json_response);
           } catch (error) {
             console.error('Error fetching character:', error);
           }
         };
-        fetchData();
+        let localCharacter = localStorage.getItem(`character_${id}`);
+        if (!localCharacter){
+            fetchData();
+        } else {
+            setCharacter(JSON.parse(localCharacter));
+        }
       }, []);
       
     async function fetchHomeworld(character) {
@@ -43,10 +48,6 @@ const Character = (props) => {
 
     return(
         <div>
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
-            <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap" rel="stylesheet"/>
-            <div id='stars'></div>
             <h1 id="name">{character?.name}</h1>
             <section id="generalInfo">
                 <p>Height: {character?.height} cm</p>

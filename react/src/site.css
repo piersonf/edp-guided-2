@@ -87,7 +87,7 @@ label {
 
 /* Character page */
 h1#name {
-  margin: 50px;
+  margin-bottom: 50px;
 }
 
 #generalInfo {
@@ -144,5 +144,6 @@ section#films a {
 /* film page */
 #openingCrawl span {
   font-weight: bold;
+  font-size: 1.3em;
 }
 
