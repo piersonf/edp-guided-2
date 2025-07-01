@@ -36,7 +36,7 @@ function App() {
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
     <link href="https://fonts.googleapis.com/css2?family=Stalinist+One&display=swap" rel="stylesheet"/>
-    <div id='stars'></div>
+    {/* <div id='stars'></div> */}
     <Router>
       <Routes>
         <Route exact path="/" element={<Home characters={characters} />} /> 

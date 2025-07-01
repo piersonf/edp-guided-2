@@ -17,7 +17,6 @@ const Planet = (props) => {
             const json_response = await response.json();
             json_response.characters = await fetchCharacters(json_response);
             json_response.films = await fetchFilms(json_response);
-            console.log(json_response);
             localStorage.setItem(`planet_${id}`, JSON.stringify(json_response));
             setPlanet(json_response); // assign JSON response to the data variable.
           } catch (error) {
@@ -26,10 +25,8 @@ const Planet = (props) => {
         };
         let localPlanet = localStorage.getItem(`planet_${id}`);
         if (!localPlanet){
-            console.log("getting planet from API")
             fetchData();
         } else {
-            console.log(JSON.parse(localPlanet))
             setPlanet(JSON.parse(localPlanet));
         }
       }, []);
